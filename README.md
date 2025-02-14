@@ -1,104 +1,81 @@
 # Dashboard oncotrial_tracker
-## Project description
-This interactive dashboard provides an overview of cancer clinical trials, giving researchers and healthcare professionals access to detailed, up-to-date information. 
+
+## Lien d'accès à l'application 🔗
+Notre application OncoTrial Tracker est disponible depuis ce lien : [](https://oncotrial-tracker.onrender.com)
+
+## Description du projet 🔍
+
+L'application OncoTrial Tracker a été développée dans le cadre du cours de web scraping, avec pour objectif de faciliter l'analyse et l'exploration des essais cliniques répertoriés dans la base de données de ClinicalTrials.gov. Les essais concernent les cancers recensés en France.
+
+**Objectifs du projet**
+
+Cette application vise à :
+
+- Centraliser et visualiser les données sur les essais cliniques en France,
+- Proposer un outil interactif permettant d’explorer les études selon les organes, types d'interventions ou encore le statut des essais,
+- Fournir des analyses graphiques afin d’améliorer la compréhension des essais cliniques,
+- Aider les professionnels de santé et chercheurs à identifier des opportunités et à suivre les tendances et dernières avancées dans le domaine.
+
+**Sources des données**
+
+Les données exploitées dans ce projet proviennent directement de l'API publique de ClinicalTrials.gov. À travers des scripts de web scraping, les données ont été collectées, nettoyées et intégrées dans une base de données. L'application permet ensuite de présenter ces informations de manière intuitive et interactive grâce à une interface construite avec Dash (langage python) et CSS.
+
+**Comment ça fonctionne ?**
+
+Les essais cliniques sont extraits et organisés dans plusieurs catégories. Ces données sont traitées pour fournir une visualisation claire, avec des options de tri et de recherche.
+Le projet utilise des techniques de manipulation de données et des outils de visualisation interactifs pour répondre aux besoins des utilisateurs finaux.
+
+**À qui s'adresse ce projet ?**
+
+Cette application a été pensée pour :
+- Les professionnels de santé souhaitant avoir une vue d’ensemble des essais cliniques en France,
+- Les chercheurs travaillant sur le développement de nouvelles thérapies,
+- Les institutions impliquées dans le suivi des essais cliniques.
+
+## Screenshots 📸
 
 
-## Instructions for use 
 
-## Installing our dashboard
+## Installation 📀 
 
-## License 
+Si vous souhaitez utiliser le dashboard OncoTrials sur votre serveur local, il faut cloner ce dépôt GitLab et installez les dépendances nécessaires. 
+_**⚠️ Prérequis **_
+Avant de lancer l’application en local, assurez-vous d’avoir installé les éléments suivants :
 
-## Contact
+- Python 3.7 ou supérieur
+- pip : Le gestionnaire de paquets Python
+- Les dépendances listées dans requirements.txt
 
 
+## Structure du répertoire 📂
+Voici la structure principale du projet :
 
-## Getting started
+oncotrial_tracker/
+├── assets/              # Fichiers statiques (images, styles CSS, etc.)
+│   ├── styles.css       # Feuille de style CSS pour le tableau de bord
+│   └── logo-gitlab.png  # Logo GitLab utilisé dans l'application
+├── data/                # Données brutes issues du webscraping
+│   ├── trials.csv       # Données des essais cliniques
+│   ├── mesh.csv         # Données MeSH (Medical Subject Headings)
+│   └── loc.csv          # Données des localisations géographiques des essais
+├── dataframe.py         # Script pour la manipulation des données
+├── desc2024.zip         # Dossier MESH 
+│   └── desc2024.xml     # Descripteurs MeSH (Medical Subject Headings) pour l'année 2024
+├── fonctions.py         # Fonctions utilitaires pour les analyses statistiques
+├── oncotrials.py        # Script principal pour exécuter le tableau de bord
+├── README.md            # Documentation du projet
+├── requirements.txt     # Liste des dépendances nécessaires
+└── LICENSE              # Licence du projet
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+## Contact ℹ️
+Pour plus d'informations, contactez nous par mail : 
 
-## Add your files
+- ABDAOUI Hâjar : hajar.abdaoui.etu@univ-lille.fr
+- AZNAY Nassima : aznay.nassima.etu@univ-lille.fr
+- BENGUENNA Célia : benguenna.celia.etu@univ-lille.fr
+- MOUS Manal : mous.manal.etu@univ-lille.fr
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
 
-```
-cd existing_repo
-git remote add origin https://gitlab.com/hajar.abdaoui/oncotrial_tracker.git
-git branch -M main
-git push -uf origin main
-```
-
-## Integrate with your tools
-
-- [ ] [Set up project integrations](https://gitlab.com/hajar.abdaoui/oncotrial_tracker/-/settings/integrations)
-
-## Collaborate with your team
-
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
-
-## Test and Deploy
-
-Use the built-in continuous integration in GitLab.
-
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
-
-***
-
-# Editing this README
-
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
-
-## Suggestions for a good README
-
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
-
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
-
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
-
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
-
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
-
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+## Licence 
+Ce projet est sous licence MIT. Consultez le fichier LICENSE pour plus d'informations.
