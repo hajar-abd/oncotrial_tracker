@@ -4,6 +4,15 @@ import pandas as pd
 import re
 import xml.etree.ElementTree as ET
 ###########################################################################################################################################
+def unzip_and_load(file_path, extract_to='.'):
+    with zipfile.ZipFile(file_path, 'r') as zip_ref:
+        zip_ref.extractall(extract_to)
+        xml_file = zip_ref.namelist()[0]
+        return os.path.join(extract_to, xml_file)
+
+xml_file_path = unzip_and_load('desc2024.zip')
+
+######################################
 
 #charger le fichier XML MeSH
 tree = ET.parse("desc2024.xml") #doit etre au meme niveau que le fichier ou preciser le chemin
@@ -60,13 +69,14 @@ def extract_year(date_str):
     match = re.search(r'\d{4}', str(date_str))  #cherche une annee a 4 chiffres
     return int(match.group()) if match else None
 
+######################################
 
 def parse_date(date_str):
     try:
-        # Si la date est complète (YYYY-MM-DD)
+        #date est complete (YYYY-MM-DD)
         return pd.to_datetime(date_str, format="%Y-%m-%d", errors='coerce')
     except:
-        # Si la date est incomplète (YYYY-MM), on ajoute le premier jour du mois
+        #date est incomplete (YYYY-MM), on ajoute le premier jour du mois
         try:
             return pd.to_datetime(date_str + "-01", format="%Y-%m-%d", errors='coerce')
         except:
