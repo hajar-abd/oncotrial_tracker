@@ -1,11 +1,4 @@
 ###########################################################################################################################################
-'''
-04/02/2025
-Manal - script pour extraire les donnees de l'API, creer des dataframes 
-06/02/2025
-Celia - data management et exportation des dataframes en csv
-'''
-###########################################################################################################################################
 #charger les packages/fonctions
 import pandas as pd
 import re 
@@ -138,5 +131,5 @@ df_mesh.to_csv("./data/mesh.csv", index=False)
 ###########################################################################################################################################
 
 ##DASHBOARD
-#voir dash_projet.py
+#voir oncotrials.py
 
