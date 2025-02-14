@@ -8,10 +8,10 @@ import plotly.express as px
 import zipfile
 import os
 ###########################################################################################################################################
-# Obtenez le chemin absolu du répertoire contenant le script
+#chemin absolu du répertoire contenant le script
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-# Chargez les fichiers en utilisant les chemins absolus
+#chargez les fichiers en utilisant les chemins absolus
 df_trials = pd.read_csv(os.path.join(BASE_DIR, "data/trials.csv"))
 df_mesh = pd.read_csv(os.path.join(BASE_DIR, "data/mesh.csv"))
 df_loc = pd.read_csv(os.path.join(BASE_DIR, "data/loc.csv"))
@@ -33,8 +33,7 @@ app = dash.Dash(
     external_stylesheets=[dbc.themes.LUMEN, "/assets/style.css"],
     suppress_callback_exceptions=True
 )
-server = app.server
-#aggregation des dataframes pour les graph
+server = app.server #necessaire pour le deploiement
 
 
 navbar = html.Div(
@@ -54,19 +53,6 @@ navbar = html.Div(
 
 
 
-# tabs = html.Div(
-#     [html.Br(),
-#         dbc.Tabs(
-#             [
-#                 dbc.Tab(
-#                     label="Dashboard", activeTabClassName="fw-bold"
-#                 ),
-#                 dbc.Tab(label="Table", activeLabelClassName="fw-bold"),
-#             ]
-#         ),
-#     ], style={"margin-top": "-20px"}
-# )
-
 tabs = html.Div(
     className="sidebar",
     children=[
@@ -74,7 +60,7 @@ tabs = html.Div(
             id="tabs",
             value="tab-dashboard",
             className="tabs-container",
-            vertical=True,  # Rend les onglets verticaux
+            vertical=True,  #rend les onglets verticaux
             children=[
                 dcc.Tab(
                     label="Dashboard",
@@ -100,17 +86,16 @@ tabs = html.Div(
 )
 
 ######################################
-######################################
 study_counts = df_trials.groupby('startYear').size().reset_index(name='count')
 
 fig_year_count = px.line(
     study_counts,
     x='startYear',
     y='count',
-    labels={'startYear': 'Year', 'count': 'Studies'},
-    title='Studies Started Each Year',
-    markers=True,  # Ajoute des points sur la ligne
-    color_discrete_sequence=['#007BA7']  # Couleur principale (bleu Bootstrap)
+    labels={'startYear': 'Year', 'count': 'Number of Trials'},
+    title='Trials Started Each Year',
+    markers=True,  
+    color_discrete_sequence=['#007BA7']  
 )
 
 fig_year_count.update_layout(
@@ -127,28 +112,28 @@ fig_year_count.update_layout(
 fig_year_count.update_xaxes(range=[1990, 2027])
 
 ######################################
-completed = df_trials[df_trials["status"]=="Completed"]#.dropna(subset=["duration_year"])
+completed = df_trials[df_trials["status"]=="Completed"]
 
 fig_box_duration = px.box(
     completed,
     y="duration_year",
-    title="Duration of completed studies",
+    title="Duration of completed trials",
     labels={"Years"},
-    color_discrete_sequence=["#007BA7"]  # Couleur principale (bleu Bootstrap)
+    color_discrete_sequence=["#007BA7"]  
 )
 
 fig_box_duration.update_layout(
-    plot_bgcolor='rgba(0,0,0,0)',   # fond transparent rgba(255,255,255,1)
-    paper_bgcolor='rgba(0,0,0,0)',  # fond transparent
+    plot_bgcolor='rgba(0,0,0,0)',   #fond transparent 
+    paper_bgcolor='rgba(0,0,0,0)',  #fond transparent
     font=dict(family="Arial", size=9, color="#333"),
-    title_x=0.5,  # centrage du titre
-    height=300,  # Hauteur réduite
-    width=400,   # Largeur standard
+    title_x=0.5,  #centrage du titre
+    height=300,  
+    width=400,   
     margin=dict(l=50, r=50, t=30, b=50) 
 )
 
-fig_box_duration.update_yaxes(range=[0, 20], title="Duration in years")  # Plage et titre de l'axe Y
-fig_box_duration.update_traces(marker=dict(color='#007BA7'))  # Garde la même couleur bleue que le graphique linéaire
+fig_box_duration.update_yaxes(range=[0, 20], title="Duration in years")  
+fig_box_duration.update_traces(marker=dict(color='#007BA7'))  
 
 ######################################
 drug_pourcentage = round(len(df_trials[df_trials.drug_FDA == True])*100/(len(df_trials[df_trials.drug_FDA == True]) + len(df_trials[df_trials.drug_FDA == False])),1)
@@ -162,15 +147,15 @@ cards_info = [
 ]
 
 card_layout = html.Div(
-    className="number-card-layout-container",  # Applique le style global du conteneur
+    className="number-card-layout-container",  
     children=[
         html.Div(
-            className="number-card",  # Style pour chaque carte
+            className="number-card",  #style pour chaque carte
             children=[
-                html.Div(card["content"], className="number-card-title"),  # Le chiffre principal
-                html.Div(card["title"], className="number-card-text")  # Le texte descriptif
+                html.Div(card["content"], className="number-card-title"),  #chiffre principal
+                html.Div(card["title"], className="number-card-text")  #texte descriptif
             ]
-        ) for card in cards_info  # Génération dynamique des cartes
+        ) for card in cards_info  #generation des cartes
     ]
 )
 
@@ -184,40 +169,40 @@ categories = df_mesh['neoplasm_category'].unique()
     Input('category-dropdown', 'value')
 )
 def update_graph(selected_category):
-    # Filtrer le DataFrame en fonction de la catégorie sélectionnée
+    #filtrer le DataFrame en fonction de la categorie selectionnee
     df_filtered = df_mesh[df_mesh['neoplasm_category'] == selected_category]
 
-    # Compter le nombre d'études par néoplasme
+    #compter le nombre d'etudes par neoplasme
     count_df = df_filtered['neoplasm'].value_counts().reset_index()
     count_df.columns = ['neoplasm', 'count']
     count_df = count_df.sort_values(by='count', ascending=False)
 
-    # Sélectionner les 10 néoplasmes les plus fréquents
+    #selectionner les 10 neoplasmes les plus frequents
     top_10_df = count_df.head(10)
 
-    # Création de la figure harmonisée
+    #creation de la figure 
     fig = px.bar(
         top_10_df,
         x='neoplasm',
         y='count',
         labels={'neoplasm': 'Neoplasm class', 'count': "Number of studies"},
         title=f"The 10 most studied neoplasms ({selected_category})",
-        color_discrete_sequence=["#027699"]  # Même bleu que le boxplot
+        color_discrete_sequence=["#027699"]  
     )
 
-    # Mise en forme harmonisée
+    #mise en forme
     fig.update_layout(
-        plot_bgcolor='rgba(0,0,0,0)',    # Fond transparent
+        plot_bgcolor='rgba(0,0,0,0)',    
         paper_bgcolor='rgba(0,0,0,0)',   # Fond transparent
-        font=dict(family="Arial", size=9, color="#333"),  # Police uniforme
-        title_x=0.5,                     # Titre centré
+        font=dict(family="Arial", size=9, color="#333"),  
+        title_x=0.5,                     
         margin=dict(l=40, r=40, t=60, b=30),
         height=450,
-        hovermode="x unified"            # Effet de survol unifié
+        hovermode="x unified"            #effet de survol 
     )
 
-    fig.update_xaxes(tickangle=-45)     # Inclinaison des étiquettes X
-    fig.update_yaxes(showgrid=True, gridcolor='lightgrey')  # Grille légère
+    fig.update_xaxes(tickangle=-45)     #inclinaison des etiquettes
+    fig.update_yaxes(showgrid=True, gridcolor='lightgrey')  #grille legere
 
     return fig
 ######################################
@@ -242,17 +227,17 @@ study_cards = [
 
 content = dbc.Container(
     [
-        # Section des cartes principales
+        #eection des cartes principales
         card_layout,
 
-        # Section combinée : Encadré + Graphique linéaire + Boxplot
+        #section combinée : encadré + graphique linéaire + boxplot
         dbc.Row([
-            # Colonne principale (Encadré + Graphique linéaire)
+            #colonne principale (encadre + graphique linéaire)
             dbc.Col([
-                # Encadré d'information
+                #encadre d'information
                 dbc.Card(
                     dbc.CardBody([
-                        html.H6("Study Trends Over the Years", className="fw-bold text-primary", style={"margin-top": "-5px", "font-size": "0.85rem"}),
+                        html.H6("Study Trends Over the Years in France", className="fw-bold text-primary", style={"margin-top": "-5px", "font-size": "0.85rem"}),
                         html.P(
                             "This graph shows the annual distribution of studies, providing insights into research trends over time.",
                             style={"text-align": "justify", "font-size": "0.75rem"}
@@ -261,7 +246,7 @@ content = dbc.Container(
                     className="text-card"
                 ),
 
-                # Graphique linéaire
+                #graphique lineaire
                 dbc.Card(
                     dbc.CardBody(
                         dbc.Spinner(
@@ -275,7 +260,7 @@ content = dbc.Container(
                 )
             ], width=8),
 
-            # Boxplot aligné à droite
+            #boxplot aligne a droite
             dbc.Col(
                 dbc.Card(
                     dbc.CardBody(
@@ -293,7 +278,7 @@ content = dbc.Container(
         ],justify="between"),
 
         dbc.Row([
-            # Dropdown + Graphique des néoplasmes
+            #dropdown + graphique des neoplasmes
             dbc.Col(
                 dbc.Card(
                     dbc.CardBody([
@@ -303,10 +288,10 @@ content = dbc.Container(
                             value='Neoplasms by Site',
                             clearable=False, 
                             style={
-                                    "width": "100%",  # Réduit la largeur à 50% de son conteneur
-                                    "height": "30px",  # Réduit la hauteur
-                                    "font-size": "0.85rem",  # Réduit la taille de la police
-                                    "padding": "0px"  # Réduit les marges internes
+                                    "width": "100%",  
+                                    "height": "30px",
+                                    "font-size": "0.85rem",  
+                                    "padding": "0px"  
                                 }
                         ),
                         dbc.Spinner(
@@ -320,9 +305,9 @@ content = dbc.Container(
                 width=6
             ),
 
-            # Deux encadrés de texte descriptif
+            #deux encadres de texte descriptif
             dbc.Col([
-                # Premier encadré
+                #premier encadre
                 dbc.Card(
                     dbc.CardBody([
                         html.P(
@@ -337,17 +322,17 @@ content = dbc.Container(
                         )
                     ]),
                     className="text-card",
-                    style={"height": "135px", "margin-top": "-20px"}  # Texte défilable
+                    style={"height": "135px", "margin-top": "-20px"}  #defilable
                 ),
 
-                # Deuxième encadré
+                #deuxieme encadré
                 dbc.Card(
                     dbc.CardBody([
-                        html.H6("Latest 5 Studies", className="text-center fw-bold text-primary"),
-                        html.Div(study_cards, style={"height": "340px", "overflowY": "auto"})  # Scrollable
+                        html.H6("Latest Results", className="text-center fw-bold text-primary"),
+                        html.Div(study_cards, style={"height": "340px", "overflowY": "auto"})  
                     ]),
                     className="shadow-sm p-3 bg-white rounded",
-                    style={"height": "388px", "overflowY": "hidden", "margin-top" : "2px"}  # Texte défilable
+                    style={"height": "388px", "overflowY": "hidden", "margin-top" : "2px"}  #defilable
                 )
             ], width=6)
         ])
@@ -364,12 +349,11 @@ df_loc_grouped = df_loc.groupby("nctid").agg({
     "country": "first"
 }).reset_index()
 
-# Fusion des DataFrames
+#fusion des DataFrames cle primaire nctid
 df_combined = pd.merge(df_trials, df_loc_grouped, on="nctid", how="inner")[[
     "title", "organization", "condition", "study_type", "status", "city", "contact"
 ]]
 
-# Renommer les colonnes pour plus de clarté
 df_combined.rename(columns={
     "title": "Title",
     "organization": "Organization",
@@ -382,7 +366,7 @@ df_combined.rename(columns={
 ######################################
 
 content2 = dbc.Container([
-    html.H3("Tableau des Essais Cliniques", className="text-center my-4 fw-bold text-primary"),
+    html.H3("Clinical Trials Table", className="text-center my-4 fw-bold text-primary"),
 
     dbc.Card(
         dbc.CardBody([
@@ -394,13 +378,13 @@ content2 = dbc.Container([
                 ],
                 data=df_combined.to_dict('records'),
                 page_size=10,
-                filter_action="native",  # Activation du filtrage natif
-                sort_action="native",    # Activation du tri natif
-                sort_mode="multi",       # Tri sur plusieurs colonnes
-                column_selectable='single',  # Activation de la sélection de colonnes
+                filter_action="native",  
+                sort_action="native",    
+                sort_mode="multi",       #tri sur plusieurs colonnes
+                column_selectable='single',  #activation de la selection de colonnes
                 style_table={'overflowX': 'auto'},
                 style_cell={
-                    'whiteSpace': 'pre-line',  # Support du saut de ligne '\n'
+                    'whiteSpace': 'pre-line',  #support du saut de ligne '\n'
                     'textAlign': 'left',
                     'padding': '10px',
                     'fontFamily': 'Arial'
@@ -416,7 +400,7 @@ content2 = dbc.Container([
                     'color': 'black'
                 },
                 style_data_conditional=[
-                    {  # Effet zébré pour les lignes impaires
+                    {  #effet zebre pour les lignes impaires
                         'if': {'row_index': 'odd'},
                         'backgroundColor': '#F9F9F9'
                     }
@@ -434,11 +418,11 @@ content3 = dbc.Container(
     [
         html.H5("About", className="text-center my-4 fw-bold text-primary"),
 
-        # Une seule carte pour contenir tout le contenu
+        
         dbc.Card(
             dbc.CardBody(
                 [
-                    # Section Contexte
+                    #Contexte
                     html.H6("Context", className="fw-bold text-secondary"),
                     html.P(
                         '''The OncoTrials Tracker application presented here was developed as part of the web scraping course, 
@@ -446,9 +430,9 @@ content3 = dbc.Container(
                         ClinicalTrials.gov database. The trials concern cancers listed in France.''',
                         style={"text-align": "justify", "font-size": "0.8rem"}
                     ),
-                    html.Hr(),  # Ligne séparatrice
+                    html.Hr(),  #separateur
 
-                    # Section Objectifs du projet
+                    #Objectifs du projet
                     html.H6("Project objectives", className="fw-bold text-secondary"),
                     html.Ul(
                         [
@@ -461,7 +445,7 @@ content3 = dbc.Container(
                     ),
                     html.Hr(),
 
-                    # Section Sources des données
+                    #Sources des données
                     html.H6("Data sources", className="fw-bold text-secondary"),
                     html.P(
                         '''The data used in this project comes from the ClinicalTrials.gov public API. 
@@ -471,7 +455,7 @@ content3 = dbc.Container(
                     ),
                     html.Hr(),
 
-                    # Section Comment ça fonctionne ?
+                    #Comment ça fonctionne ?
                     html.H6("How it works ?", className="fw-bold text-secondary"),
                     html.P(
                         '''Clinical trials are extracted and organized into several categories. This data is processed to provide a clear 
@@ -484,7 +468,7 @@ content3 = dbc.Container(
                     ),
                     html.Hr(),
 
-                    # Section À qui s'adresse ce projet ?
+                    #A qui s'adresse ce projet ?
                     html.H6("Who is this project for?", className="fw-bold text-secondary"),
                     html.Ul(
                         [
@@ -496,7 +480,7 @@ content3 = dbc.Container(
                     ),
                     html.Hr(),
 
-                    # Section Équipe et développement
+                    #Equipe et developpement
                     html.H6("Team and development", className="fw-bold text-secondary"),
                     html.P(
                         '''This project was created by ABDAOUI Hâjar, AZNAY Nassima, BENGUENNA Célia, MOUS Manal and TAIBI Chaima as part of the Master Health Data Science program at the University of Lille (ILIS). 
@@ -509,7 +493,7 @@ content3 = dbc.Container(
                     )
                 ]
             ),
-            className="shadow-sm p-4 mb-4 bg-white rounded"  # Style de la carte
+            className="shadow-sm p-4 mb-4 bg-white rounded"  
         )
     ],
     fluid=True
@@ -518,10 +502,6 @@ content3 = dbc.Container(
 
 
 ######################################
-# app.layout = html.Div([
-#     dcc.Location(id="url"),
-#     navbar, tabs, content, footer
-# ])
 @app.callback(
     Output('tab-content', 'children'),
     [Input('tabs', 'value')]
@@ -531,9 +511,9 @@ def render_content(tab):
         return content
     elif tab == 'tab-table':
         return content2
-    elif tab == 'tab-about':  # Condition pour "À propos"
+    elif tab == 'tab-about':  #condition pour "a propos"
         return content3
-    return content  # Par défaut
+    return content  #par défaut
 
 app.layout = html.Div(
     className="main-container",
@@ -542,10 +522,10 @@ app.layout = html.Div(
         html.Div(
             className="layout-container",
             children=[
-                tabs,  # Navigation latérale
+                tabs,  #navigation laterale
                 html.Div(
                     id="tab-content",
-                    className="content-container"  # Conteneur pour afficher le contenu
+                    className="content-container"  #conteneur pour afficher le contenu
                 )
             ]
         )
