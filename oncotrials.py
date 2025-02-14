@@ -499,7 +499,7 @@ content3 = dbc.Container(
                     # Section Équipe et développement
                     html.H6("Team and development", className="fw-bold text-secondary"),
                     html.P(
-                        '''This project was created by ABDAOUI Hâjar, AZNAY Nassima, BENGUENNA Célia and MOUS Manal, as part of the Master Data Science en Santé program at the University of Lille (ILIS). 
+                        '''This project was created by ABDAOUI Hâjar, AZNAY Nassima, BENGUENNA Célia, MOUS Manal and TAIBI Chaima as part of the Master Health Data Science program at the University of Lille (ILIS). 
                         It is based on data extracted via the ClinicalTrials.gov API, and was presented during the web scraping course taught by Mr. Djamel ZITOUNI.''',
                         style={"text-align": "justify", "font-size": "0.8rem"}
                     ),
