@@ -1,4 +1,4 @@
-# Dashboard OncoTrials Tracker
+# Dashboard OncoTrial Tracker
 
 ## Lien d'accès à l'application 🔗
 Notre application OncoTrial Tracker est disponible depuis ce lien : https://oncotrial-tracker.onrender.com
