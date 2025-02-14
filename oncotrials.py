@@ -12,9 +12,9 @@ import os
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # Chargez les fichiers en utilisant les chemins absolus
-df_trials = pd.read_csv(os.path.join(BASE_DIR, "/data/trials.csv"))
-df_mesh = pd.read_csv(os.path.join(BASE_DIR, "/data/mesh.csv"))
-df_loc = pd.read_csv(os.path.join(BASE_DIR, "/data/loc.csv"))
+df_trials = pd.read_csv(os.path.join(BASE_DIR, "data/trials.csv"))
+df_mesh = pd.read_csv(os.path.join(BASE_DIR, "data/mesh.csv"))
+df_loc = pd.read_csv(os.path.join(BASE_DIR, "data/loc.csv"))
 ###########################################################################################################################################
 
 
