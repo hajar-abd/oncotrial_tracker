@@ -466,7 +466,7 @@ content3 = dbc.Container(
                     html.P(
                         '''The data used in this project comes from the ClinicalTrials.gov public API. 
                         Using web scraping scripts, the data was collected, cleaned and integrated into a database. 
-                        The application then presents this information intuitively and interactively through an interface built with Dash (or other).''',
+                        The application then presents this information intuitively and interactively through an interface built with Dash and CSS.''',
                         style={"text-align": "justify", "font-size": "0.8rem"}
                     ),
                     html.Hr(),
