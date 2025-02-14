@@ -1,7 +1,7 @@
-# Dashboard oncotrial_tracker
+# Dashboard OncoTrials Tracker
 
 ## Lien d'accès à l'application 🔗
-Notre application OncoTrial Tracker est disponible depuis ce lien : [](https://oncotrial-tracker.onrender.com)
+Notre application OncoTrial Tracker est disponible depuis ce lien : https://oncotrial-tracker.onrender.com
 
 ## Description du projet 🔍
 
@@ -34,12 +34,16 @@ Cette application a été pensée pour :
 
 ## Screenshots 📸
 
+![Page d'accueil du dashboard](assets/screen_dashboard.png)
+
+![Page Table de l'application](assets/screen_table.png)
 
 
 ## Installation 📀 
 
 Si vous souhaitez utiliser le dashboard OncoTrials sur votre serveur local, il faut cloner ce dépôt GitLab et installez les dépendances nécessaires. 
-_**⚠️ Prérequis **_
+
+ ⚠️ **Prérequis**
 Avant de lancer l’application en local, assurez-vous d’avoir installé les éléments suivants :
 
 - Python 3.7 ou supérieur
@@ -49,7 +53,7 @@ Avant de lancer l’application en local, assurez-vous d’avoir installé les �
 
 ## Structure du répertoire 📂
 Voici la structure principale du projet :
-
+```bash
 oncotrial_tracker/
 ├── assets/              # Fichiers statiques (images, styles CSS, etc.)
 │   ├── styles.css       # Feuille de style CSS pour le tableau de bord
@@ -66,7 +70,7 @@ oncotrial_tracker/
 ├── README.md            # Documentation du projet
 ├── requirements.txt     # Liste des dépendances nécessaires
 └── LICENSE              # Licence du projet
-
+```
 
 ## Contact ℹ️
 Pour plus d'informations, contactez nous par mail : 
