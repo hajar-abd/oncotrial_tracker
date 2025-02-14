@@ -41,7 +41,7 @@ Cette application a été pensée pour :
 
 ## Installation 📀 
 
-Si vous souhaitez utiliser le dashboard OncoTrials sur votre serveur local, il faut cloner ce dépôt GitLab et installez les dépendances nécessaires. 
+Si vous souhaitez utiliser le dashboard OncoTrial Tracker sur votre serveur local, il faut cloner ce dépôt GitLab et installez les dépendances nécessaires. 
 
  ⚠️ **Prérequis**
 Avant de lancer l’application en local, assurez-vous d’avoir installé les éléments suivants :
