@@ -73,13 +73,14 @@ oncotrial_tracker/
 ```
 
 ## Contact ℹ️
+
 Pour plus d'informations, contactez nous par mail : 
 
 - ABDAOUI Hâjar : hajar.abdaoui.etu@univ-lille.fr
 - AZNAY Nassima : aznay.nassima.etu@univ-lille.fr
 - BENGUENNA Célia : benguenna.celia.etu@univ-lille.fr
 - MOUS Manal : mous.manal.etu@univ-lille.fr
-
+- TAIBI Chaima : chaima.taibi.etu@univ-lille.fr
 
 ## Licence 
 Ce projet est sous licence MIT. Consultez le fichier LICENSE pour plus d'informations.
